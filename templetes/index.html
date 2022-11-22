@@ -1,0 +1,134 @@
+{% include 'header.html' %}
+
+            
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <!--begin::Subheader-->
+  <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap"
+    >
+      <!--begin::Info-->
+      <div class="d-flex align-items-center flex-wrap mr-2">
+        <!--begin::Page Title-->
+        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+          Dashboard
+        </h5>
+        <!--end::Page Title-->
+
+        <!--begin::Actions-->
+        <div
+          class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"
+        ></div>
+        <!-- <span class="text-muted font-weight-bold mr-4"> Dashboard</span> -->
+      </div>
+      <!--end::Info-->
+    </div>
+  </div>
+
+  {% for DD in DashboardData %}
+  <!--begin::Entry-->
+  <div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container">
+      <div class="card card-custom gutter-b">
+        <div
+          class="card-header"
+          style="border-bottom: 0px solid #ebedf3;"
+        ></div>
+
+        <div class="card-body">
+          <!--begin::Stats-->
+          <div class="card-spacer mt-n25">
+            <!--begin::Row-->
+            <div class="row m-0">
+              <div class="col bg-light-primary px-6 py-8 rounded-xl mr-7 mb-7">
+                <span class="svg-icon svg-icon-3x svg-icon-info d-block my-2">
+                  <i class="flaticon2-user icon-2x text-primary"></i>
+                  <!--end::Svg Icon-->
+                </span>
+                <a
+                  href="All-customers/"
+                  class="text-primary font-weight-bold font-size-h6"
+                >
+                  Users
+                </a>
+                <a
+                  href="All-customers/"
+                  class="text-primary font-weight-bold font-size-h6"
+                >
+                  <h2>{{ DD.userCount}}</h2>
+                </a>
+              </div>
+
+              <!-- <div class="col  px-6 py-8 rounded-xl mb-7"></div> -->
+              <div class="col bg-light-success px-6 py-8 rounded-xl mb-7">
+                <span
+                  class="svg-icon svg-icon-3x svg-icon-success d-block my-2"
+                >
+                  <i class="flaticon2-delivery-truck icon-2x text-success"></i>
+                </span>
+                <a
+                  href="All-Dirvers/"
+                  class="text-success font-weight-bold font-size-h6 mt-2"
+                >
+                  Transporters
+                </a>
+                <a
+                  href="All-Dirvers/"
+                  class="text-success font-weight-bold font-size-h6 mt-2"
+                >
+                  <h2>
+                    {{ DD.driverCount}}
+                  </h2>
+                </a>
+              </div>
+            </div>
+
+            <div class="row m-0">
+              <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
+                <span class="svg-icon svg-icon-3x svg-icon-info d-block my-2">
+                    <i class="flaticon2-user icon-2x text-info"></i>
+                  <!--end::Svg Icon-->
+                </span>
+                <a
+                  href="Pending-Driver-Request/"
+                  class="text-info font-weight-bold font-size-h6">
+                  Pending Request
+                </a>
+                <a
+                  href="Pending-Driver-Request/"
+                  class="text-info font-weight-bold font-size-h6"
+                >
+                  <h2>{{ DD.pendingRequestCount}}</h2>
+                </a>
+              </div>
+
+              <div class="col bg-light-info px-6 py-8 rounded-xl mr-7 mb-7">
+                <span class="svg-icon svg-icon-3x svg-icon-info d-block my-2">
+                    <i class="flaticon2-user icon-2x text-info"></i>
+                  <!--end::Svg Icon-->
+                </span>
+                <a
+                  href="All-Orders/"
+                  class="text-info font-weight-bold font-size-h6">
+                  All Order
+                </a>
+                <a
+                  href="All-Orders/"
+                  class="text-info font-weight-bold font-size-h6"
+                >
+                  <h2>{{ DD.allOrders}}</h2>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+{% include "footer.html" %}

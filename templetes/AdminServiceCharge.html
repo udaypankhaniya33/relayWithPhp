@@ -1,0 +1,151 @@
+{% include 'header.html' %}
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::Subheader-->
+	<div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+		<div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Info-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+					Admin Service Charge </h5>
+				<!--end::Page Title-->
+
+				<!--begin::Actions-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+				</div>
+				<span class="text-muted font-weight-bold mr-4"> </span>
+
+			</div>
+			<!--end::Info-->
+		</div>
+	</div>
+	<!--end::Subheader-->
+
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class=" container ">
+			<div class="card card-custom gutter-b">
+				<div class="card-header">
+
+					<div class="card-title">
+						<h3 class="card-label">
+							Admin Service Charge
+						</h3>
+					</div>
+				</div>
+				<div class="card-body">
+
+					<form class="form" method="POST" id="form">
+
+						{% csrf_token %}
+                        {%for t in mainData%}
+                        
+                 
+						<div class="form-group row">
+							<label class="col-form-label text-right col-lg-3 col-sm-12">Service Charge <label class="error">*</label></label>
+							<div class="col-lg-9 col-md-9 col-sm-12">
+								<input type="text" class="form-control" name="Country" placeholder="enter in per" id="Country" value="{{t.value}}" />
+							</div>
+						</div>
+                        {% endfor %}
+						<div class="card-footer" style="text-align:center;">
+							<button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+						</div>
+
+
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+{% include "footer.html" %} 
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<!--end::Global Config-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+
+<script>
+	$("#form").validate({
+		rules: {
+
+			Country:{ 
+				required: true
+
+			},
+
+
+		},
+
+		messages: {
+			Country:{ 
+				required:"this field cannot be empty"
+
+			}
+
+				},
+				submitHandler: function(form) {
+
+					country=$('#Country').val()
+
+
+					data= {
+						'serviceCharge':country,
+					}
+
+					jsonText = JSON.stringify(data);
+					$("#kt_save_content").attr("disabled", true);
+
+					$.ajax({
+						url: '/UpdateAdminservice/',
+						method:"POST",
+						data: {
+							'csrfmiddlewaretoken': '{{ csrf_token }}',
+							'data':jsonText
+						},
+
+
+						success: function(result) {
+							if(result=="failed"){
+								toastr.error("Somthing Went wrong");
+							
+							}if(result=="success"){
+								toastr.success("Record Updated Successfull") 
+							}
+
+
+
+						},
+						error:function(er){
+							toastr.error("failed");
+						}
+					}); 
+                 }
+
+
+
+
+});
+
+
+
+
+
+
+
+
+</script>
+
+

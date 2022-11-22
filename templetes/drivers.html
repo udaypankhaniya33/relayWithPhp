@@ -1,0 +1,394 @@
+{% include 'header.html'%}
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::Subheader-->
+	<div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+		<div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Info-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+					User </h5>
+				<!--end::Page Title-->
+
+				<!--begin::Actions-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+				</div>
+				<span class="text-muted font-weight-bold mr-4"> All Drivers</span>
+
+			</div>
+			<!--end::Info-->
+		</div>
+	</div>
+	<!--end::Subheader-->
+
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class=" container ">
+
+			<div class="card card-custom gutter-b">
+				<div class="card-header flex-wrap border-0 pt-6 pb-0">
+					<div class="card-title">
+						<h3 class="card-label">
+					
+
+						</h3>
+					</div>
+
+				</div>
+
+				<div class="card-body">
+					<!--begin: Datatable-->
+					<table class="table   table-responsive table-separate table-head-custom table-checkable" id="metarial">
+                        <thead>
+
+
+
+                            <tr>
+                                <th>#</th>
+                                <th>profilePic</th>
+                                <th>Fullname</th>
+                                
+                                <th>email</th>
+                                <th>Approvel Date</th>
+                                <th>location</th>
+                                <th>Level</th>
+                                <th>document</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                {% load post_tag %}
+                            {% for data in mainData %}
+
+                            <tr>
+                                <th>{{forloop.counter}}</th>
+                                <th>
+                                    <a href="View-User/{{ data.id| encoder }}" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+                                        <img src="{{data.profilepic}}" style="width: 40px;border-radius: 10px;">
+                                    </a>
+                                </th>
+                                <th>{{data.firstname|title }} </th>
+               
+                                <th>{{data.email}}</th>
+                            
+                                <th>{{data.ApprovelDate}}</th>
+
+
+                                <th>
+       
+                                    {{ data.location | slice:'1 :-1' }} <br>
+
+   
+
+                            </th>
+                                <th>
+                                    {% if data.level == "level1" %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20.005" viewBox="0 0 17 20.005">
+                                        <g id="Group_518" data-name="Group 518" transform="translate(-142.826 -131.906)">
+                                          <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)" fill="#8d8d8d"/>
+                                          <text id="_1" data-name="1" transform="translate(148 146)" fill="#fff" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">1</tspan></text>
+                                        </g>
+                                      </svg>
+                                      {% elif data.level == "level2" %}
+
+
+
+
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20.005" viewBox="0 0 17 20.005">
+                                        <g id="Group_519" data-name="Group 519" transform="translate(-142.826 -131.906)">
+                                          <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)"/>
+                                          <text id="_2" data-name="2" transform="translate(148 146)" fill="#fff" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">2</tspan></text>
+                                        </g>
+                                      </svg>
+
+
+                                      {% elif data.level == "level3" %}
+                                      
+
+                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="20.005" viewBox="0 0 17 20.005">
+                                        <defs>
+                                          <linearGradient id="linear-gradient" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                                            <stop offset="0" stop-color="#fc0"/>
+                                            <stop offset="0.263" stop-color="#ffee58"/>
+                                            <stop offset="0.535" stop-color="#fb0"/>
+                                            <stop offset="0.799" stop-color="#ffee97"/>
+                                            <stop offset="1" stop-color="#fc0"/>
+                                          </linearGradient>
+                                        </defs>
+                                        <g id="Group_520" data-name="Group 520" transform="translate(-142.826 -131.906)">
+                                          <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)" fill="url(#linear-gradient)"/>
+                                          <text id="_3" data-name="3" transform="translate(148 146)" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">3</tspan></text>
+                                        </g>
+                                      </svg>
+
+                                      {% endif%}
+                                      
+                                      
+
+                                </th>
+                        
+                                <th>
+
+
+                                    <button onclick="WatchDocument('{{data.document}}')" style="width: 30px;height:
+                                    30px;" title="Watch Document" data-toggle="tooltip" data-theme="dark"
+                                        data-placement="right" class="btn btn-icon btn-info">
+                                        <i class="fas
+                                        fa-eye"></i></button>
+
+
+                                    <a href="{{data.document}}"
+                                        style="width: 30px;height: 30px; margin-right:5px;" class="btn btn-icon
+                                    btn-success" download title="Download Document" data-toggle="tooltip"
+                                        data-theme="dark" data-placement="right"><i class="fa fa-download"
+                                            aria-hidden="true"></i> </a>
+                                </th>
+
+
+                                <th>
+
+                                    <button onclick="ApproveDriver({{ data.id }})" id="lock"
+                                        style="width: 30px;height: 30px; margin-right:5px;" title="Approve"
+                                        data-toggle="tooltip" data-theme="dark" data-placement="right"
+                                        class="btn btn-icon btn-success"><i class="fas fa-check"></i></i></button>
+
+                                    <button onclick="changeText({{ data.id }})" id="lock"
+                                    style="width: 30px;height: 30px; margin-right:5px;" title="Reject"
+                                        data-toggle="tooltip" data-theme="dark" data-placement="right"
+                                        class="btn btn-icon btn-danger"><i class="fas fa-times"></i></button>
+                                    {% if data.status == 0 %}
+
+                                    <button onclick="block({{ data.id }})"
+                                        style="width: 30px;height: 30px; margin-right:5px;" title="block"
+                                        data-toggle="tooltip" data-theme="dark" data-placement="right" id="unlock"
+                                        class="btn btn-icon btn-warning"><i class="fa fa-lock"></i></button>
+                                    {% endif %}
+
+                                    {% if data.status == 1 %}
+                                    <button onclick="block({{ data.id }})"
+									id="lock"
+                                    style="width: 30px;height: 30px; margin-right:5px;" title="Unblock"
+                                    data-toggle="tooltip" data-theme="dark" data-placement="right"
+                                    class="btn btn-icon btn-primary"><i class="fa fa-unlock"></i></button>
+                                    {% endif %}
+
+
+
+
+
+
+
+
+                                    <a href="View-User/{{ data.id| encoder }}" style="width:
+                                        30px;height: 30px;margin-right:5px;" title="View User" data-toggle="tooltip"
+                                        data-theme="dark" data-placement="right" class="btn btn-icon
+                                        btn-success"><i class="fa fa-edit"></i></a>
+
+                                    <button onclick="delet('{{data.id}}')" style="width: 30px;height:
+                                        30px;" title="Delete User" data-toggle="tooltip" data-theme="dark"
+                                        data-placement="right" class="btn btn-icon btn-danger">
+                                        <i class="fas
+                                            fa-trash"></i></button>
+
+
+
+
+                                </th>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+					<!--end: Datatable-->
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+{% include "footer.html" %}
+<script src="static/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js" integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script language="javascript">
+    $(document).ready(function () {
+        $('#metarial').dataTable({
+        });
+    });
+   
+    function WatchDocument(Name) {
+        Swal.fire({
+            imageUrl: 'media/' + Name,
+            imageHeight: 400,
+            imageAlt: 'A tall image'
+        })
+    }
+
+    function block(CustomerId) {
+
+
+        data = { 'customersId': CustomerId }
+        jsonText = JSON.stringify(data);
+
+        $.ajax({
+            url: '/Block_UnBlock_User/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+
+                if (result == 3) {
+                    toastr.warning("Somthing Went Wrong");
+                } if (result == 2) {
+                    {% comment %} toastr.success("unblock"); {% endcomment %}
+                    window.location.reload()
+                } if (result == 1) {
+                    {% comment %} toastr.success("block"); {% endcomment %}
+                    window.location.reload()
+
+                }
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+    }
+
+    function delet(CustomerId) {
+
+        data = { 'customersId': CustomerId }
+        jsonText = JSON.stringify(data);
+
+        $.ajax({
+            url: '/delete_User/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+
+                if (result == 3) {
+                    toastr.warning("Somthing Went Wrong");
+                } if (result == 2) {
+                    {% comment %} toastr.success("unblock"); {% endcomment %}
+                    window.location.reload()
+                } if (result == 1) {
+                    {% comment %} toastr.success("block"); {% endcomment %}
+                    window.location.reload()
+
+                }
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+
+
+
+    }
+
+
+    function ApproveDriver(CustomerId) {
+
+        data = { 'CustomerId': CustomerId }
+        jsonText = JSON.stringify(data);
+
+        $.ajax({
+            url: '/Approve-Driver-Request/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+
+                if (result == 3) {
+                    toastr.warning("Somthing Went Wrong");
+                } if (result == 2) {
+                    {% comment %} toastr.success("unblock"); {% endcomment %}
+                    window.location.reload()
+                } if (result == 1) {
+                    {% comment %} toastr.success("block"); {% endcomment %}
+                    window.location.reload()
+
+                }
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+
+
+
+    }
+
+
+	function changeText(CustomerId) {
+
+        
+ 
+        const { value: text } =  Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Message',
+          inputPlaceholder: 'Type your message here...',
+
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true
+        }).then((text) => {
+          if (text.value) {
+            
+        data={
+            value: text.value,
+            CustomerId:CustomerId
+        }
+        jsonText = JSON.stringify(data);
+              $.ajax({ 
+                        url: "/Reject-Request/",
+                        method: "post",
+                        data: {
+                 
+
+
+        
+                            'csrfmiddlewaretoken': '{{ csrf_token }}',
+                            'data': jsonText
+                        
+                        },
+                        
+                        success: function(response) {
+                            window.location.reload()
+
+                        }
+                    })
+          
+            
+      
+          }
+          // console.log(text)
+        })
+        
+}
+    </script>

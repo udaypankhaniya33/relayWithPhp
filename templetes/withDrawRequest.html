@@ -1,0 +1,282 @@
+{% include 'header.html' %}
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+        <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+                    Payment Withdraw Requests </h5>
+                <!--end::Page Title-->
+
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+                </div>
+                <span class="text-muted font-weight-bold mr-4"> </span>
+
+            </div>
+            <!--end::Info-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+               
+
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <a type="button" href="exelfile/" onclick="window.location.reload" class="btn btn-light-info font-weight-bolder  float-right" >
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
+                            <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Devices\Printer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <path d="M16,17 L16,21 C16,21.5522847 15.5522847,22 15,22 L9,22 C8.44771525,22 8,21.5522847 8,21 L8,17 L5,17 C3.8954305,17 3,16.1045695 3,15 L3,8 C3,6.8954305 3.8954305,6 5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,15 C21,16.1045695 20.1045695,17 19,17 L16,17 Z M17.5,11 C18.3284271,11 19,10.3284271 19,9.5 C19,8.67157288 18.3284271,8 17.5,8 C16.6715729,8 16,8.67157288 16,9.5 C16,10.3284271 16.6715729,11 17.5,11 Z M10,14 L10,20 L14,20 L14,14 L10,14 Z" fill="#000000"></path>
+                                    <rect fill="#000000" opacity="0.3" x="8" y="2" width="8" height="2" rx="1"></rect>
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span> Export CSV file
+                    </a>
+
+
+               
+                    <table class="table table-separate table-head-custom table-checkable" id="metarial">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>profilePic</th>
+                                <th>withDrawId</th>
+                                <th>Fullname</th>
+                  
+                                <th>email</th>
+                                <th>Amount</th>
+                                <th>Request Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+
+
+                    {% for data in mainData %}
+                            {% load post_tag %}
+                            <tr>
+                                <th>{{forloop.counter}}</th>
+                                <th>
+                                    <a href="View-User/{{ data.id| encoder }}" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+                                        <img src="{{data.profilepic}}" style="width: 40px;border-radius: 10px;">
+                                    </a>
+                                </th>
+
+                                <th>{{data.requestIdForUser}}</th>
+                                <th>{{data.firstname|title }} </th>
+                              
+                                <th>{{data.email}}</th>
+           
+                                <th>{{data.amount}}</th>
+
+                                <th>
+
+                                    {{data.RequestTime}}
+                                                                         
+                                </th>
+                                <th>
+
+                                    <a href="#"
+                                    style="width: 30px;height: 30px; margin-right:5px;" class="btn btn-icon
+                                btn-success"  title="Approve" data-toggle="tooltip"
+
+                                onclick="ApproveDriver({{ data.id }})"
+                                    data-theme="dark" data-placement="right"><i class="fa fa-check"
+                                        aria-hidden="true"></i> </a>
+
+                                        <button onclick="changeText({{ data.id }})" id="lock"
+                                        style="width: 30px;height: 30px; margin-right:5px;" title="Reject"
+                                            data-toggle="tooltip" data-theme="dark" data-placement="right"
+                                            class="btn btn-icon btn-danger"><i class="fas fa-times"></i></button>
+                                </th>
+                        
+                      
+                            </tr>
+                            {% endfor %} 
+
+                        </tbody>
+
+                    </table>
+                    <!--end: Datatable-->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include "footer.html" %}
+<script src="static/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js" integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script language="javascript">
+    $(document).ready(function () {
+        $('#metarial').dataTable({
+    
+        });
+    });
+   
+    function WatchDocument(Name) {
+        Swal.fire({
+            imageUrl:  Name,
+            imageHeight: 400,
+            imageAlt: 'A tall image'
+        })
+    }
+
+    function generatecsv() {
+
+
+       
+
+        {% comment %} $.ajax({
+            url: '/exelfile/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+              
+            },
+            success: function (result) {
+
+         
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        }); {% endcomment %}
+    }
+
+    function delet(CustomerId) {
+
+        data = { 'customersId': CustomerId }
+        jsonText = JSON.stringify(data);
+
+        $.ajax({
+            url: '/delete_User/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+
+                if (result == 3) {
+                    toastr.warning("Somthing Went Wrong");
+                } if (result == 2) {
+                    {% comment %} toastr.success("unblock"); {% endcomment %}
+                    window.location.reload()
+                } if (result == 1) {
+                    {% comment %} toastr.success("block"); {% endcomment %}
+                    window.location.reload()
+
+                }
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+
+
+
+    }
+
+
+    function ApproveDriver(CustomerId) {
+
+        data = { 'CustomerId': CustomerId }
+        jsonText = JSON.stringify(data);
+
+        $.ajax({
+            url: 'ApproveWithdrawRequest/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+
+                if (result == 3) {
+                    toastr.warning("Somthing Went Wrong");
+                } if (result == 2) {
+                    {% comment %} toastr.success("unblock"); {% endcomment %}
+                    window.location.reload()
+                } if (result == 1) {
+                    {% comment %} toastr.success("block"); {% endcomment %}
+                    window.location.reload()
+
+                }
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+
+
+
+    }
+
+
+    function changeText(CustomerId) {
+
+        
+ 
+     
+            
+        data={
+        
+            CustomerId:CustomerId
+        }
+        jsonText = JSON.stringify(data);
+              $.ajax({ 
+                        url: "RejectWithdrawRequest/",
+                        method: "post",
+                        data: {
+        
+                            'csrfmiddlewaretoken': '{{ csrf_token }}',
+                            'data': jsonText
+                        
+                        },
+                        
+                        success: function(response) {
+                            window.location.reload()
+
+                        }
+                    })
+          
+            
+      
+          
+          // console.log(text)
+        
+        
+}
+    </script>

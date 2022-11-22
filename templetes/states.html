@@ -1,0 +1,119 @@
+{% include 'header.html' %}
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+        <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+                    states </h5>
+                <!--end::Page Title-->
+
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+                </div>
+                <span class="text-muted font-weight-bold mr-4"> All states</span>
+            </div>
+            <!--end::Info-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            View Users
+
+                        </h3>
+                    </div>
+                    <a class="btn btn-light-info font-weight-bolder" href="Addvideo/" style="padding: 15px;">
+                        <span class="svg-icon svg-icon-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                    <path
+                                        d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z"
+                                        fill="#000000" />
+                                </g>
+                            </svg>
+                        </span> Add Country
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <!--begin: Datatable-->
+                    <table class="table table-separate table-head-custom table-checkable" id="metarial">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>countryName</th>
+                                <th>stateName</th>
+                                <th>actions</th>
+                             
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for data in mainData%}
+                            <tr>
+                                <th>{{forloop.counter}}</th>
+                                <th>
+                                  {{data.countryName}}
+                                </th>
+                                <th>
+                                    {{data.stateName}}
+                                </th>
+                                <th>
+
+                   
+                                        <a href="View-User/" style="width:
+                                        30px;height: 30px;margin-right:5px;" title="Edit" data-toggle="tooltip"
+                                        data-theme="dark" data-placement="right" class="btn btn-icon
+                                        btn-success"><i class="fa fa-edit"></i></a>
+    
+                                    <button onclick="delet('{{data.id}}')" style="width: 30px;height:
+                                        30px;" title="Delete" data-toggle="tooltip" data-theme="dark"
+                                        data-placement="right" class="btn btn-icon btn-danger"><i class="fas
+                                            fa-trash"></i></button>
+    
+                                </th>
+                                
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    <!--end: Datatable-->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include "footer.html" %}
+<script src="static/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $('#metarial').dataTable();
+    });
+</script>

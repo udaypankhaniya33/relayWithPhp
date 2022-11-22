@@ -1,0 +1,17 @@
+Options -Indexes
+RewriteEngine on 
+RewriteRule ^productdetail-([a-zA-Z0-9_.=+]+)/$ productdetail/index.php?edit=$1
+RewriteRule ^vieworder-([a-zA-Z0-9_.=+]+)/$ vieworder/index.php?edit=$1
+
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php7_module>
+   php_value output_buffering On
+</IfModule>
+<IfModule lsapi_module>
+   php_value output_buffering On
+</IfModule>
+# END cPanel-generated php ini directives, do not edit

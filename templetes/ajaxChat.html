@@ -1,0 +1,172 @@
+<div class="chat">
+  <div class="chat-header clearfix">
+    <div class="row">
+      <div class="col-lg-6">
+        {% for d in transporterData %}
+        <a href="javascript:void(0);">
+          <img
+            src="{{d.profilepic}}"
+            alt="avatar"
+            style="
+              border-radius: 5px;
+              width: 45px;
+              border-radius: 50%;
+              height: 40px;
+            "
+          />
+        </a>
+        <div class="chat-about">
+          <h6 class="m-b-0">{{d.firstname | title}} </h6>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="chat-history">
+    <ul class="m-b-0 h-300px" style="overflow: scroll;">
+      {% if data %} 
+        {% for d in data %} 
+        
+          {% if d.senderType == "USER" %}
+
+ 
+
+            {% if d.messagetype == 'message' %}
+            <li class="clearfix">
+              <div class="message-data text-right">
+                <span class="message-data-time">{{d.created}}</span>
+              </div>
+              <div class="message other-message float-right">{{d.message}}</div>
+            </li>
+            {% endif %} 
+            {% if d.messagetype == 'audio' %}
+
+            <li class="clearfix">
+              <div class="message-data text-right">
+                <span class="message-data-time">{{d.created}}</span>
+              </div>
+            <audio controls class="text-right">
+              <source src="{{d.message}}" type="audio/ogg">
+    
+      
+            </audio>
+
+          </div>
+        </li>
+            {% endif %} 
+
+            {% if d.messagetype == 'image' %}
+						<div class="symbol symbol-100 mr-5  text-right">
+              <div class="symbol-label" style="background-image:url('http://{{c.message}}')"></div>      
+            </div>
+            {% endif %}
+
+            {% if d.messagetype == 'price' %}
+
+            <div class="symbol symbol-100 mr-5  text-right">
+              <div class="card" style="padding :25px 25px 25px 25px">{{d.message}}</div>      
+            </div>
+            {% endif %} 
+
+
+     
+
+          {% endif %} 
+
+
+
+          												{% comment %} {% if c.messagetype == 'text' %}
+						
+												<div class="message other-message float-right"> {{c.message}}</div>	
+												{% endif %}
+
+												{% if c.messagetype == 'document' %}
+						
+
+												<div class="symbol symbol-100 mr-5  text-right">
+
+													<div class="symbol-label" style="background-image:url('http://{{c.message}}')"></div>
+									
+									
+												</div>
+											
+												
+												
+												{% endif %} {% endcomment %}
+
+          {% if d.senderType == "TRANSPORTER" %}
+          {% comment %} <li class="clearfix">
+            <div class="message-data">
+              <span class="message-data-time">{{d.created}}</span>
+            </div>
+            <div class="message my-message">{{d.message}}</div>
+          </li> {% endcomment %}
+
+
+          {% if d.messagetype == 'message' %}
+          <li class="clearfix">
+            <div class="message-data">
+              <span class="message-data-time">{{d.created}}</span>
+            </div>
+            <div class="message my-message">{{d.message}}</div>
+          </li>
+          {% endif %} 
+
+
+          {% if d.messagetype == 'image' %}
+          <div class="symbol symbol-100 mr-5 ">
+
+
+            <div class="symbol-label" style="background-image:url('{{d.message}}')"></div>      
+          </div>
+          {% endif %}
+
+          {% if d.messagetype == 'price' %}
+
+          <div class="message-data">
+            <span class="message-data-time">{{d.created}}</span>
+          </div>
+
+          <div class="symbol symbol-100 mr-5  ">
+    
+              <div class="card card-1" style="min-height: 200px;">
+                <h3 class="card-header" style="text-align: center;">Order Request Sent to Customer </h3>
+                <h2 class="card-body">Price Rs: {{d.message}}</h2>
+              </div>
+     
+            </div>
+            
+            {% comment %} {{d.message}} {% endcomment %}
+          
+
+          {% endif %} 
+
+          {% if d.messagetype == 'audio' %}
+
+          <li class="clearfix">
+            <div class="message-data ">
+              <span class="message-data-time">{{d.created}}</span>
+            </div>
+          <audio controls>
+            <source src="{{d.message}}" type="audio/ogg">
+  
+            Your browser does not support the audio element.
+          </audio>
+
+      </li>
+          {% endif %} 
+
+
+
+
+
+          {% endif %} 
+        {% endfor %} 
+      {% else %}
+
+      <h3>No Chats avaliable</h3>
+
+      {% endif %}
+    </ul>
+  </div>
+</div>

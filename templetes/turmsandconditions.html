@@ -1,0 +1,149 @@
+{% include 'header.html' %}
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!-- begin::Subheader -->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Details-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Terms And Conditions</h5>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+                <!--end::Separator-->
+                <!--begin::Search Form-->
+                <div class="d-flex align-items-center" id="kt_subheader_search">
+                    <span class="text-dark-50 font-weight-bold" id="kt_subheader_total"></span>
+                </div>
+                <!--end::Search Form-->
+            </div>
+            <!--end::Details-->
+
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container">
+            <!--begin::Card-->
+            <div class="card card-custom">
+                <div class="card-header">
+                    <h3 class="card-title">Terms And Conditions</h3>
+                </div>
+                <!--begin::Form-->
+                <form class="form" method="post" id="myForm" action="UpdateTC/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+
+                        <div class="form-group ">
+                            <div class="col-lg-2"></div>
+
+                            <!--begin::Card-->
+                            <div class="card card-custom gutter-b example example-compact">
+                                <!-- <div class="card-header">
+                                    <h3 class="card-title">
+                                        Blog Content
+                                    </h3>
+                                </div> -->
+                                <div class="card-body">
+                                    <textarea name="summernote" id="summernote1">
+                                        {%for t in mainData%}
+                                            {{t.value}}
+                                        {% endfor %}
+                                    </textarea>
+
+                                </div>
+                            </div>
+                            <!--end::Card-->
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-12" style="text-align: center;">
+                                <button type="button" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" id='kt_save_content' name="save"
+                                    class="btn btn-primary cebutton mr-2">save</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+{% include "footer.html" %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#summernote1').summernote({
+            height: 300,
+        });
+
+    });
+</script>
+<script>
+    function addslashes(str) {
+        return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+    }
+
+    $("#myForm").validate({
+        rules: {
+
+            content: {
+                required: true,
+            }
+        },
+        messages: {
+
+            content: {
+                required: "Content Requried",
+            }
+        },
+
+
+
+    });
+
+
+</script>
+
+
+{% if error.er2 %}
+<script>
+    $(document).ready(function () {
+        toastr.error("Somthing Went Wrong");
+    })
+
+</script>
+{% endif %}
+
+{% if error.er3 %}
+<script>
+    $(document).ready(function () {
+        toastr.success("Content Change Successfull");
+    })
+
+</script>
+{% endif %}

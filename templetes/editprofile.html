@@ -1,0 +1,120 @@
+ {% include 'header.html' %}
+ <style>
+    .form-control {
+    
+        width: 100% !important;
+    }
+    </style>
+    
+    <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Subheader-->
+        <div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+            <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                <!--begin::Info-->
+                <div class="d-flex align-items-center flex-wrap mr-2">
+    
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+                        Profile</h5>
+                    <!--end::Page Title-->
+    
+                    <!--begin::Actions-->
+                    <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+    
+                    </div>
+                    <span class="text-muted font-weight-bold mr-4"> Edit Profile</span>
+                </div>
+                <!--end::Info-->
+            </div>
+        </div>
+        <!--end::Subheader-->
+        {% for user in userData  %}
+        <!--begin::Entry-->
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class=" container ">
+    
+                <div class="card card-custom gutter-b">
+                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                Edit Profile
+    
+                            </h3>
+                        </div>
+    
+                    </div>
+    
+                    <div class="card-body">
+                        <form class="form" id="form" method="post"  enctype="multipart/form-data"  action="updateAdmin"> 
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-form-label text-right col-lg-3 col-sm-12">Profile
+                                    Picture</label>
+    
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+                                    <div class="image-input image-input-outline" id="kt_image_1">
+                                        <div class="image-input-wrapper"
+                                            style="background-image: url( 'media/{{user.profilepic}}')"></div>
+                                        <label
+                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                            data-action="change" data-toggle="tooltip" title=""
+                                            data-original-title="Change avatar">
+                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                            <input type="file" name="profile" value="{{user.profilepic}}" />
+                                            <input type="hidden" name="profile_avatar_remove" />
+                                        </label>
+                                        <span
+                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                            data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label class="col-form-label text-right col-lg-3 col-sm-12">Full
+                                    Name</label>
+                                <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <input type="text" name="firstName" class="form-control form-control-lg"
+                                        placeholder="First Name" value="{{user.firstname}}">
+                                </div>
+                                <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <input type="text" name="lastName" class="form-control form-control-lg"
+                                        placeholder="Last Name" value="{{user.lastname}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label text-right col-lg-3 col-sm-12">Email</label>
+                                <div class="col-lg-6 col-md-9 col-sm-12">
+    
+                                    <input type="text" name="email" class="form-control form-control-lg" placeholder="Email"
+                                        value="{{user.email}}">
+    
+                                </div>
+                            </div>
+
+                            <div class="card-footer" style="text-align:center;">
+                                <button type="submit" name="submit" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModalScrollable" class="btn btn-primary mr-2">Submit</button>
+                            </div>
+                        </form>
+    
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+
+        {% endfor%}
+    
+    </div>
+
+
+{% include "footer.html" %}     
+
+<script type="text/javascript">
+    var avatar1 = new KTImageInput('kt_image_1');
+</script>    

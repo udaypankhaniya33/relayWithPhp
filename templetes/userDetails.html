@@ -1,0 +1,518 @@
+{% include 'header.html' %}
+<style>
+	.form-control {
+
+		width: 100% !important;
+	}
+
+	
+    .maps123 {
+        max-height: 300px;
+        max-width: 700px;
+        min-width: 100px;
+        min-height: 300px;
+        margin: 0px;
+        padding: 0px;
+
+        margin-left: 5%;
+    }
+</style>
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::Subheader-->
+	<div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+		<div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Info-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+					Users</h5>
+				<!--end::Page Title-->
+
+				<!--begin::Actions-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+				</div>
+				<span class="text-muted font-weight-bold mr-4"> User Profile</span>
+			</div>
+			<!--end::Info-->
+		</div>
+	</div>
+	<!--end::Subheader-->
+	{% for user in mainData %}
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class=" container ">
+
+			<div class="card card-custom gutter-b">
+				<div class="card-header flex-wrap border-0 pt-6 pb-0">
+					<div class="card-title">
+						<h3 class="card-label">
+							User Profile
+
+						</h3>
+					</div>
+
+				</div>
+
+				<div class="card-body">
+					<ul class="nav nav-tabs nav-tabs-line">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Profile</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Orders</a>
+						</li>
+
+						<!--<li class="nav-item">-->
+						<!--	<a class="nav-link " data-toggle="tab" href="#kt_tab_pane_4" tabindex="-1"-->
+						<!--		aria-disabled="true">Disabled</a>-->
+						<!--</li>-->
+					</ul>
+					<div class="tab-content mt-5" id="myTabContent">
+						<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel"
+							aria-labelledby="kt_tab_pane_2">
+							<form class="form" id="form" method="post" enctype="multipart/form-data" action="/Users/">
+								{% csrf_token %}
+
+
+								<div class="container">
+
+
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Profile
+											Picture</label>
+
+										<div class="col-lg-6 col-md-9 col-sm-12">
+											<div class="image-input image-input-outline" id="kt_image_1">
+												<div class="image-input-wrapper"
+													style="background-image: url( '{{user.profilepic}}')  ;   background-position: center;">
+												</div>
+
+
+												<input type="hidden" name="profile_avatar_remove" />
+												</label>
+												<span
+													class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+													data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+													<i class="ki ki-bold-close icon-xs text-muted"></i>
+												</span>
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Full
+											Name</label>
+										<div class="col-lg-3 col-md-9 col-sm-12">
+											<input type="text" name="firstName" class="form-control form-control-lg"
+												placeholder="First Name" value="{{user.firstname}}" readonly>
+										</div>
+						
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Email</label>
+										<div class="col-lg-6 col-md-9 col-sm-12">
+
+											<input type="text" name="email" class="form-control form-control-lg"
+												placeholder="Email" value="{{user.email}}" readonly>
+
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Mobile
+											Number</label>
+										<div class="col-lg-6 col-md-9 col-sm-12">
+
+											<input type="text" name="mobileNumber" class="form-control form-control-lg"
+												placeholder="Mobile Number" value="{{user.number}}" readonly>
+										</div>
+									</div>
+
+
+									{% if user.document != None %}
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Uploader Id</label>
+										<div class="col-lg-6 col-md-9 col-sm-12">
+
+
+
+											<img src="{{user.document}}" style="width: 40%">
+
+
+										</div>
+
+
+
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">LEVEL</label>
+										<div class="col-lg-6 col-md-9 col-sm-12 pt-3">
+
+
+
+											{% if user.level == "level1" %}
+											<svg xmlns="http://www.w3.org/2000/svg" width="17" height="20.005" viewBox="0 0 17 20.005">
+												<g id="Group_518" data-name="Group 518" transform="translate(-142.826 -131.906)">
+												  <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)" fill="#8d8d8d"/>
+												  <text id="_1" data-name="1" transform="translate(148 146)" fill="#fff" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">1</tspan></text>
+												</g>
+											  </svg>
+											  {% elif user.level == "level2" %}
+		
+		
+		
+		
+											  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20.005" viewBox="0 0 17 20.005">
+												<g id="Group_519" data-name="Group 519" transform="translate(-142.826 -131.906)">
+												  <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)"/>
+												  <text id="_2" data-name="2" transform="translate(148 146)" fill="#fff" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">2</tspan></text>
+												</g>
+											  </svg>
+		
+		
+											  {% elif user.level == "level3" %}
+											  
+		
+											  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="20.005" viewBox="0 0 17 20.005">
+												<defs>
+												  <linearGradient id="linear-gradient" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox">
+													<stop offset="0" stop-color="#fc0"/>
+													<stop offset="0.263" stop-color="#ffee58"/>
+													<stop offset="0.535" stop-color="#fb0"/>
+													<stop offset="0.799" stop-color="#ffee97"/>
+													<stop offset="1" stop-color="#fc0"/>
+												  </linearGradient>
+												</defs>
+												<g id="Group_520" data-name="Group 520" transform="translate(-142.826 -131.906)">
+												  <path id="_1Asset_1" data-name="1Asset 1" d="M17,4a1.81,1.81,0,0,0-1.25-1.69L9.07.1A1.85,1.85,0,0,0,7.84.1L1.23,2.41A1.82,1.82,0,0,0,0,4.12v6.64a8.12,8.12,0,0,0,4.59,7.29l3.6,1.86a.74.74,0,0,0,.36.09.73.73,0,0,0,.35-.09L12.51,18a8.58,8.58,0,0,0,2.43-1.84A8.28,8.28,0,0,0,17,10.66Z" transform="translate(142.826 131.912)" fill="url(#linear-gradient)"/>
+												  <text id="_3" data-name="3" transform="translate(148 146)" font-size="11" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">3</tspan></text>
+												</g>
+											  </svg>
+		
+											  {% endif%}
+
+
+										</div>
+
+
+
+									</div>
+
+
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Document
+											Actions</label>
+										<a href="static/media/{{user.document}}"
+											style="width: 30px;height: 30px; margin-right:5px;" class="btn btn-icon
+											btn-success" download title="Download Document" data-toggle="tooltip" data-theme="dark" data-placement="right"><i
+																			class="fa fa-download" aria-hidden="true"></i>
+																	</a>
+
+																	<button onclick="WatchDocument('{{user.document}}')" style="width: 30px;height:
+												30px;" title="Watch Document" data-toggle="tooltip" data-theme="dark" type="button" data-placement="right"
+																		class="btn btn-icon btn-info">
+																		<i class="fas
+													fa-eye"></i></button>
+
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Work Radius</label>
+										<div class="col-lg-6 col-md-9 col-sm-12">
+		
+											<input type="text" name="mobileNumber" class="form-control form-control-lg"
+												placeholder="In KM" value="{{user.radius| title}}" readonly>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label text-right col-lg-3 col-sm-12">Location</label>
+										<div class="col-lg-6 col-md-9 col-sm-12">
+		
+								
+
+											<iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{ user.fromlongitude}}, {{ user.fromlatitude}}&amp;key=AIzaSyC3m9WWTU7PReQGIfLovv_zN0KSWe7pTfM"></iframe>
+
+									
+
+
+										</div>
+									</div>
+
+
+									<hr>
+
+									<label class="col-form-label text-right col-lg-3 col-sm-12"><h3>Bank Details:</h3></label>
+																<div class="form-group row">
+																	<label class="col-form-label text-right col-lg-3 col-sm-12">Bank Name</label>
+																	<div class="col-lg-6 col-md-9 col-sm-12">
+									
+																		<input type="text" name="mobileNumber" class="form-control form-control-lg"
+																			placeholder="Bank Name" value="{{user.bankname| title}}" readonly>
+																	</div>
+																</div>
+									
+																<div class="form-group row">
+																	<label class="col-form-label text-right col-lg-3 col-sm-12">Account Name</label>
+																	<div class="col-lg-6 col-md-9 col-sm-12">
+									
+																		<input type="text" name="mobileNumber" class="form-control form-control-lg"
+																			placeholder="Account Name" value="{{user.accountname| title}}" readonly>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label class="col-form-label text-right col-lg-3 col-sm-12">Account Number</label>
+																	<div class="col-lg-6 col-md-9 col-sm-12">
+									
+																		<input type="text" name="mobileNumber" class="form-control form-control-lg"
+																			placeholder="Account Number" value="{{user.accountnumber| title}}" readonly>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label class="col-form-label text-right col-lg-3 col-sm-12">IFSC Code</label>
+																	<div class="col-lg-6 col-md-9 col-sm-12">
+									
+																		<input type="text" name="mobileNumber" class="form-control form-control-lg"
+																			placeholder="IFSC Code" value="{{user.ifccode| upper }}" readonly>
+																	</div>
+																</div>
+
+																
+									{% endif %}
+							
+								
+									<div class="card-footer" style="text-align:center;">
+										<button type="submit" name="submit" class="btn btn-primary" data-toggle="modal"
+											data-target="#exampleModalScrollable" class="btn btn-primary mr-2">Back To
+											all Customers </button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+
+
+						<div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+							<div class="card-body">
+								<table class="table table-separate table-head-custom table-checkable responsive" id="metarial">
+									<thead>
+			
+			
+			
+										<tr>
+											<th>#</th>
+											<th>Customer</th>
+											<th>From</th>
+											<th>To</th>
+											<th>Transporter</th>
+											<th>Order Details </th>
+											<th>Order Status From User</th>
+											<th>Order Status </th>
+											<th>Order Chats </th>
+										</tr>
+									</thead>
+			
+			
+									<tbody>
+									  
+										{% for data in OrderData %}
+										{% load post_tag %}
+										<tr>
+											<th>{{forloop.counter}}</th>
+											<th>
+												
+												<a href="View-User/{{ data.userId | encoder }}" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+													<img src="{{data.userpic}}" style="width: 40px;border-radius: 10px;">
+												 
+												</a>
+			
+												<br>
+												<span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+												{{data.firstname|title }} {{ data.lastname | title }} 
+												</span>
+			
+											</th>
+										   <th>{{data.fromcity|title }} </th>
+											<th>{{data.tocity |title}}</th>
+			
+			
+											<th>
+
+                                
+												{% if data.transporterId != '0' %}
+											<a href="View-User/{{ data.transporterId| encoder }}" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+		
+								
+												<img src="{{data.transporterpic}}" style="width: 40px;border-radius: 10px;">
+											 
+											</a>
+										  
+		
+											   <br>
+											<span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+											{{data.transportername|title }} {{ data.transporterlastname | title }} 
+											</span>
+											{% else %}
+		
+											<span
+													class="font-weight-bold "> The transporter has not yet accepted </span>
+													{% endif %}
+		
+										</th>
+									 
+												<th> 
+													<a href="Order-Details/{{ data.orderId | encoder }}"  style="width: 30px; height: 30px; margin-right: 5px;"
+													title="View details"
+													data-toggle="tooltip"
+													data-theme="dark"
+													data-placement="right"
+													class="btn btn-icon btn-success"
+												  >
+													<i class="fa fa-eye"></i>
+												  </a>
+			
+												</th>
+									
+												
+												{% if data.statusFromUser == 0 %}
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-primary label-inline">Pending</span>
+												</th>
+												{% elif data.statusFromUser == 1 %}
+				
+				
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-success label-inline">Accepted</span>
+												</th>
+												{% elif data.statusFromUser == 2 %}
+				
+				
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-Warning label-inline">Cancelled</span>
+												</th>
+												{% endif %}
+			
+			
+			
+			
+												<!--  -->
+			
+												{% if data.OrderStatus == 0 %}
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-primary label-inline">Pending</span>
+												</th>
+												{% elif data.OrderStatus == 1 %}
+				
+				
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-info label-inline">Running</span>
+												</th>
+												{% elif data.OrderStatus == 2 %}
+				
+				
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-success label-inline">delivared</span>
+												</th>
+			
+												{% elif data.OrderStatus == 3 %}
+				
+				
+												<th>
+													<span
+														class="label label-lg font-weight-bold label-light-warning label-inline">Rejected</span>
+												</th>
+												{% endif %}
+											
+											
+										        
+												<th> 
+													<a href="Order-chats/{{ data.orderId | encoder }}"  style="width: 30px; height: 30px; margin-right: 5px;"
+													title="View details"
+													data-toggle="tooltip"
+													data-theme="dark"
+													data-placement="right"
+													class="btn btn-icon btn-info"
+												  >
+												  <i class="fa fa-comment"></i>
+												  </a>
+			
+												</th>
+										 
+			
+										
+										</tr>
+										{% endfor %}
+			
+									</tbody>
+			
+								</table>
+							</div>
+
+						</div>
+						<div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel" aria-labelledby="kt_tab_pane_3">
+							Tab content 4</div>
+						<div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel" aria-labelledby="kt_tab_pane_4">
+							Tab content 5</div>
+					</div>
+
+
+
+
+
+
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	{% endfor%}
+
+</div>
+
+
+{% include "footer.html" %}
+
+<script src="static/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
+	integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
+	integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3m9WWTU7PReQGIfLovv_zN0KSWe7pTfM&callback=initMap">
+	</script>
+
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+
+
+
+	function WatchDocument(Name) {
+		Swal.fire({
+			imageUrl: Name,
+			imageHeight: 400,
+			
+		})
+	}
+
+	$(document).ready(function () {
+		$('#metarial').dataTable({
+		});
+	});
+	var avatar1 = new KTImageInput('kt_image_1');
+</script>

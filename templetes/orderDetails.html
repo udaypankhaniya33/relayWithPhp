@@ -1,0 +1,707 @@
+{% include 'header.html' %}
+<style>
+	.form-control {
+
+		width: 100% !important;
+	}
+</style>
+
+<style>
+	body {
+		background-color: #f4f7f6;
+		margin-top: 20px;
+	}
+	.text-right {
+		text-align: right !important;
+		float: right;
+	}
+	.card {
+		background: #fff;
+		transition: .5s;
+		border: 0;
+		margin-bottom: 30px;
+		border-radius: .55rem;
+		position: relative;
+		width: 100%;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+	}
+
+	.chat-app .people-list {
+		width: 280px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: 20px;
+		z-index: 7
+	}
+
+	.chat-app .chat {
+
+		border-left: 1px solid #eaeaea
+	}
+
+	.people-list {
+		-moz-transition: .5s;
+		-o-transition: .5s;
+		-webkit-transition: .5s;
+		transition: .5s
+	}
+
+	.people-list .chat-list li {
+		padding: 10px 15px;
+		list-style: none;
+		border-radius: 3px
+	}
+
+	.people-list .chat-list li:hover {
+		background: #efefef;
+		cursor: pointer
+	}
+
+	.people-list .chat-list li.active {
+		background: #efefef
+	}
+
+	.people-list .chat-list li .name {
+		font-size: 15px
+	}
+
+	.people-list .chat-list img {
+		width: 45px;
+		border-radius: 50%;
+		height: 40px;
+	}
+
+	.people-list img {
+		float: left;
+		border-radius: 50%
+	}
+
+	.people-list .about {
+		float: left;
+		padding-left: 8px;
+		padding-block-start: 5%;}
+
+	.people-list .status {
+		color: #999;
+		font-size: 13px
+	}
+
+	.chat .chat-header {
+		padding: 15px 20px;
+		border-bottom: 2px solid #f4f7f6
+	}
+
+	.chat .chat-header img {
+		float: left;
+		border-radius: 40px;
+		width: 40px
+	}
+
+	.chat .chat-header .chat-about {
+		float: left;
+		padding-left: 10px
+	}
+
+	.chat .chat-history {
+		padding: 20px;
+		border-bottom: 2px solid #fff
+	}
+
+	.chat .chat-history ul {
+		padding: 0
+	}
+
+	.chat .chat-history ul li {
+		list-style: none;
+		margin-bottom: 30px
+	}
+
+	.chat .chat-history ul li:last-child {
+		margin-bottom: 0px
+	}
+
+	.chat .chat-history .message-data {
+		margin-bottom: 15px
+	}
+
+	.chat .chat-history .message-data img {
+		border-radius: 40px;
+		width: 40px
+	}
+
+	.chat .chat-history .message-data-time {
+		color: #434651;
+		padding-left: 6px
+	}
+
+	.chat .chat-history .message {
+		color: #444;
+		padding: 18px 20px;
+		line-height: 26px;
+		font-size: 16px;
+		border-radius: 7px;
+		display: inline-block;
+		position: relative
+	}
+
+	.chat .chat-history .message:after {
+		bottom: 100%;
+		left: 7%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-bottom-color: #fff;
+		border-width: 10px;
+		margin-left: -10px
+	}
+
+	.chat .chat-history .my-message {
+		background: #efefef
+	}
+
+	.chat .chat-history .my-message:after {
+		bottom: 100%;
+		left: 30px;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-bottom-color: #efefef;
+		border-width: 10px;
+		margin-left: -10px
+	}
+
+	.chat .chat-history .other-message {
+		background: #e8f1f3;
+		text-align: right
+	}
+
+	.chat .chat-history .other-message:after {
+		border-bottom-color: #e8f1f3;
+		left: 93%
+	}
+
+	.chat .chat-message {
+		padding: 20px
+	}
+
+	.online,
+	.offline,
+	.me {
+		margin-right: 2px;
+		font-size: 8px;
+		vertical-align: middle
+	}
+
+	.online {
+		color: #86c541
+	}
+
+	.offline {
+		color: #e47297
+	}
+
+	.me {
+		color: #1d8ecd
+	}
+
+	.float-right {
+		float: right
+	}
+
+	.clearfix:after {
+		visibility: hidden;
+		display: block;
+		font-size: 0;
+		content: " ";
+		clear: both;
+		height: 0
+	}
+
+	@media only screen and (max-width: 767px) {
+		.chat-app .people-list {
+			height: 465px;
+			width: 100%;
+			overflow-x: auto;
+			background: #fff;
+			left: -400px;
+			display: none
+		}
+
+		.chat-app .people-list.open {
+			left: 0
+		}
+
+		.chat-app .chat {
+			margin: 0
+		}
+
+		.chat-app .chat .chat-header {
+			border-radius: 0.55rem 0.55rem 0 0
+		}
+
+		.chat-app .chat-history {
+			height: 300px;
+			overflow-x: auto
+		}
+	}
+
+	@media only screen and (min-width: 768px) and (max-width: 992px) {
+		.chat-app .chat-list {
+			height: 650px;
+			overflow-x: auto
+		}
+
+		.chat-app .chat-history {
+			height: 600px;
+			overflow-x: auto
+		}
+	}
+
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+		.chat-app .chat-list {
+			height: 480px;
+			overflow-x: auto
+		}
+
+		.chat-app .chat-history {
+			height: calc(100vh - 350px);
+			overflow-x: auto
+		}
+	}
+</style>
+
+
+
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::Subheader-->
+	<div class="subheader py-2 py-lg-4  subheader-solid " id="kt_subheader">
+		<div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Info-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+					Users</h5>
+				<!--end::Page Title-->
+
+				<!--begin::Actions-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
+
+				</div>
+				<span class="text-muted font-weight-bold mr-4"> User Profile</span>
+			</div>
+			<!--end::Info-->
+		</div>
+	</div>
+	<!--end::Subheader-->
+
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class=" container ">
+
+			<div class="card card-custom gutter-b">
+				<div class="card-header flex-wrap border-0 pt-6 pb-0">
+					<div class="card-title">
+						<h3 class="card-label">
+							User Profile
+
+						</h3>
+					</div>
+
+				</div>
+
+				<div class="card-body">
+					<ul class="nav nav-tabs nav-tabs-line">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">Profile</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Orders</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4">Chats</a>
+						</li>
+					</ul>
+					<div class="tab-content mt-5" id="myTabContent">
+						<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel"
+							aria-labelledby="kt_tab_pane_2">
+							{% for user in userData %}
+						<form class="form" id="form" method="post" enctype="multipart/form-data"
+							action="/Users/">
+							{% csrf_token %}
+
+
+							<div class="container">
+
+
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Profile
+										Picture</label>
+
+									<div class="col-lg-6 col-md-9 col-sm-12">
+										<div class="image-input image-input-outline" id="kt_image_1">
+											<div class="image-input-wrapper"
+												style="background-image: url( 'media/{{user.profilepic}}')  ;   background-position: center;">
+											</div>
+
+
+											<input type="hidden" name="profile_avatar_remove" />
+											</label>
+											<span
+												class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+												data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+												<i class="ki ki-bold-close icon-xs text-muted"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Full
+										Name</label>
+									<div class="col-lg-3 col-md-9 col-sm-12">
+										<input type="text" name="firstName" class="form-control form-control-lg"
+											placeholder="First Name" value="{{user.firstname}}" readonly>
+									</div>
+									<div class="col-lg-3 col-md-9 col-sm-12">
+										<input type="text" name="lastName" class="form-control form-control-lg"
+											placeholder="Last Name" value="{{user.lastname}}" readonly>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Email</label>
+									<div class="col-lg-6 col-md-9 col-sm-12">
+
+										<input type="text" name="email" class="form-control form-control-lg"
+											placeholder="Email" value="{{user.email}}" readonly>
+
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Mobile
+										Number</label>
+									<div class="col-lg-6 col-md-9 col-sm-12">
+
+										<input type="text" name="mobileNumber" class="form-control form-control-lg"
+											placeholder="Mobile Number" value="{{user.number}}" readonly>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Uploader Id</label>
+									<div class="col-lg-6 col-md-9 col-sm-12">
+
+
+
+										<img src="static/media/{{user.document}}" style="width: 40%">
+
+
+									</div>
+
+
+
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label text-right col-lg-3 col-sm-12">Document
+										Actions</label>
+									<a href="static/media/{{user.document}}"
+										style="width: 30px;height: 30px; margin-right:5px;" class="btn btn-icon
+									btn-success" download title="Download Document" data-toggle="tooltip" data-theme="dark"
+										data-placement="right"><i class="fa fa-download" aria-hidden="true"></i>
+									</a>
+
+									<button onclick="WatchDocument('{{user.document}}')" style="width: 30px;height:
+										30px;" title="Watch Document" data-toggle="tooltip" data-theme="dark" type="button" data-placement="right"
+										class="btn btn-icon btn-info">
+										<i class="fas
+											fa-eye"></i></button>
+
+								</div>
+								<div class="card-footer" style="text-align:center;">
+									<button type="submit" name="submit" class="btn btn-primary" data-toggle="modal"
+										data-target="#exampleModalScrollable" class="btn btn-primary mr-2">Back To
+										all Customers </button>
+								</div>
+
+							</div>
+							</form> 
+
+							{% endfor%}
+						</div>
+
+
+						<div class="tab-pane fade " id="kt_tab_pane_2" role="tabpanel"
+							aria-labelledby="kt_tab_pane_2">
+							<div class="card-body">
+								<table class="table table-separate table-head-custom table-checkable responsive"
+									id="metarial">
+									<thead>
+
+
+
+										<tr>
+											<th>#</th>
+											<th>Customer</th>
+											<th>From</th>
+											<th>To</th>
+											<th>Transporter</th>
+											<th>Order Details </th>
+											<th>Order Status From User</th>
+											<th>Order Status </th>
+										</tr>
+									</thead>
+
+
+									<tbody>
+
+										{% for data in OrderData %}
+										{% load post_tag %}
+										<tr>
+											<th>{{forloop.counter}}</th>
+											<th>
+
+												<a href="View-User/{{ data.userId | encoder }}"
+													class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+													<img src="{{data.userPic}}"
+														style="width: 40px;border-radius: 10px;">
+
+												</a>
+
+												<br>
+												<span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+													{{data.UserfullName|title }}
+												</span>
+
+											</th>
+											<th>{{data.fromcity|title }} </th>
+											<th>{{data.tocity |title}}</th>
+
+
+											<th>
+												<a href="View-User/{{ data.transporterId| encoder }}"
+													class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+
+
+													<img src="{{data.transporterpic}}"
+														style="width: 40px;border-radius: 10px;">
+
+												</a>
+
+												<br>
+												<span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+													{{data.fullName|title }}
+												</span>
+
+											</th>
+											<th>{{data.orderDescription}}</th>
+
+
+											{% if data.statusFromUser == 0 %}
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-primary label-inline">Pending</span>
+											</th>
+											{% elif data.statusFromUser == 1 %}
+
+
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-success label-inline">Accepted</span>
+											</th>
+											{% elif data.statusFromUser == 2 %}
+
+
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-Warning label-inline">Cancelled</span>
+											</th>
+											{% endif %}
+
+
+
+
+											<!-- -->
+
+											{% if data.OrderStatus == 0 %}
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-primary label-inline">Pending</span>
+											</th>
+											{% elif data.OrderStatus == 1 %}
+
+
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-info label-inline">running</span>
+											</th>
+											{% elif data.OrderStatus == 2 %}
+
+
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-success label-inline">delivared</span>
+											</th>
+
+											{% elif data.OrderStatus == 3 %}
+
+
+											<th>
+												<span
+													class="label label-lg font-weight-bold label-light-warning label-inline">Rejected</span>
+											</th>
+											{% endif %}
+
+										</tr>
+										{% endfor %}
+
+									</tbody>
+
+								</table>
+							</div>
+
+						</div> 
+
+						<div class="tab-pane fade  " id="kt_tab_pane_4" role="tabpanel" aria-labelledby="kt_tab_pane_4">
+							<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+							<div class="container">
+							<div class="row ">
+								<div class="col-lg-3">
+									<div id="plist" class="people-list">
+										<ul class="list-unstyled chat-list mt-2 mb-0">
+
+
+											{% if chatsHeadings %}
+												{% for trs in chatsHeadings %}
+
+												<li class="clearfix" onclick="chats( '{{trs.orderDetailId}}' )">
+													<img src="static/media/{{trs.profilePic}}" alt="avatar">
+													<div class="about">
+														<div class="name">{{trs.fullName}}</div>
+													</div>
+												</li>
+												{% endfor %}
+
+											{% else %}
+											<div class="name">{{"Messages not avaliable at moment"| title}}</div>
+											{% endif %}
+
+										</ul>
+									</div>
+									</div>
+									<div class="col-lg-9">
+
+									<div class="card chat-app" id="chats">
+
+										<div class="chat">
+											<!-- <div class="chat-header clearfix">
+												<div class="row">
+													<div class="col-lg-6">
+														<a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+															<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+														</a>
+														<div class="chat-about">
+															<h6 class="m-b-0">Aiden Chavez</h6>
+															<small>Last seen: 2 hours ago</small>
+														</div>
+													</div>
+
+												</div>
+											</div> -->
+											<div class="chat-history">
+												<ul class="m-b-0">
+
+												{% for c in ChatData %}
+
+													<li class="clearfix">
+														<div class="message-data text-right">
+															<span class="message-data-time">{{c.messagetime}}</span>
+														
+														</div>
+														<div class="message other-message float-right"> {{c.message}}</div>
+													</li>
+													{% endfor %}
+													
+
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+{% include "footer.html" %}
+
+<script src="static/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
+	integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
+	integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+
+	function WatchDocument(Name) {
+		Swal.fire({
+			imageUrl: 'media/' + Name,
+			imageHeight: 400,
+			imageAlt: 'A tall image'
+		})
+	}
+
+	$(document).ready(function () {
+		$('#metarial').dataTable({
+		});
+	});
+	var avatar1 = new KTImageInput('kt_image_1');
+
+function chats(orderDetailId){
+        data = { 'OrderDetailId': orderDetailId }
+        jsonText = JSON.stringify(data);
+        $.ajax({
+            url: '/getChats/',
+            method: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'data': jsonText
+            },
+            success: function (result) {
+				alert(result)
+				$("#chats").html(result)
+            },
+            error: function (er) {
+                toastr.error("failed");
+            }
+        });
+    
+}
+</script>
