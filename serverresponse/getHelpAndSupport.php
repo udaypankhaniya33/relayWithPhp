@@ -1,11 +1,10 @@
-<?php include "../include/dbconnection.php";
-$termsandconditionId=isset($_POST["CustomerId"])?$_POST["CustomerId"]:"";
-
+<?php
+include("../include/dbconnection.php");
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt_array($curl, array(
-        CURLOPT_URL => base."deleteTermsAndConditions",
+        CURLOPT_URL => base."getHelpAndSupport",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -14,9 +13,8 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS =>"{
-            \"termsandconditionId\": \"$termsandconditionId\"\r\n
-    
-        }",
+			\"status\": \"1\"\r\n
+		}",
         CURLOPT_HTTPHEADER => array(
 
             "Content-Type: application/json"
@@ -42,4 +40,5 @@ if (isset($error_msg)) {
 }
 
 curl_close($curl);
+
 

@@ -1,35 +1,162 @@
 <?php include '../include/header1.php';
-$termsandconditionId = isset($_GET["Id"]) ? $_GET["Id"] : "";
+$termsandconditionId = isset($_GET["Id"]) ? base64_decode($_GET["Id"]) : "";
 if (isset($_GET["Id"])) {
-    $TNC = mysqli_fetch_array(mysqli_query($connection, "SELECT * FROM `termsandcondition` WHERE `termsandconditionId`='" . $termsandconditionId . "' AND `delete`='0'"));
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => base . "getTermsAndCondition",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "{
+            \"termsandconditionId\": \"" . ($termsandconditionId) . "\"\n
+
+        }",
+        CURLOPT_HTTPHEADER => array(
+
+            "Content-Type: application/json"
+        ),
+    ));
+
+    $response = (curl_exec($curl));
+
+
+
+
+    if (curl_errno($curl)) {
+        $error_msg = curl_error($curl);
+    }
+
+    if (isset($error_msg)) {
+        echo $error_msg;
+
+        exit;
+    } else {
+
+
+        $data = json_decode($response, true);
+        if ($data["status"] == 200) {
+            $TNC = $data["data"][0];
+        }
+    }
+
+    curl_close($curl);
 }
 
 if (isset($_POST["submit"])) {
 
 
-    echo $_POST["summernote"];
     $title = trim($_POST["title"]);
-    $description = mysqli_real_escape_string($connection, trim($_POST["description"]));
+    $description =  trim($_POST["description"]);
     $type = trim($_POST["type"]);
 
 
     if (isset($_GET["Id"])) {
 
-        $query = mysqli_query($connection, "UPDATE `termsandcondition` SET `title`='" . $title . "',`value`='" . $description . "',`type`='" . $type . "' WHERE `termsandconditionId`='" . $termsandconditionId . "' AND `delete`='0'");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => base . "editTermsAndConditions",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{
+                \"title\": \"" . ($title) . "\",\n
+                \"type\": \"" . ($type) . "\",\n
+                \"value\": \"" . ($description) . "\",\n
+                \"termsandconditionId\": \"" . ($termsandconditionId) . "\"\n
+            }",
+            CURLOPT_HTTPHEADER => array(
+
+                "Content-Type: application/json"
+            ),
+        ));
+
+        $response = (curl_exec($curl));
 
 
-        if ($query) {
 
 
-            $updateNote = "Content Updated Successfull";
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
         }
+
+        if (isset($error_msg)) {
+            echo $error_msg;
+
+            exit;
+        } else {
+
+
+            $data = json_decode($response, true);
+            if ($data["status"] == 200) {
+                $successNote = "Content Added  Successfull";
+            }
+        }
+
+        curl_close($curl);
     } else {
-        $query = mysqli_query($connection, "INSERT INTO `termsandcondition` SET `title`='" . $title . "',`value`='" . $description . "',`type`='" . $type . "' ");
+        // $query = mysqli_query($connection, "INSERT INTO `termsandcondition` SET `title`='" . $title . "',`value`='" . $description . "',`type`='" . $type . "' ");
 
-        if ($query) {
+        // if ($query) {
 
-            $successNote = "Content Added  Successfull";
+        //     $successNote = "Content Added  Successfull";
+        // }
+
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => base . "addTermsAndConditions",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{
+                \"title\": \"" . ($title) . "\",\n
+                \"type\": \"" . ($type) . "\",\n
+                \"value\": \"" . ($description) . "\"\n
+            }",
+            CURLOPT_HTTPHEADER => array(
+
+                "Content-Type: application/json"
+            ),
+        ));
+
+        $response = (curl_exec($curl));
+
+
+
+
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
         }
+
+        if (isset($error_msg)) {
+            echo $error_msg;
+
+            exit;
+        } else {
+
+
+            $data = json_decode($response, true);
+            if ($data["status"] == 200) {
+                $successNote = "Content Added  Successfull";
+            }
+        }
+
+        curl_close($curl);
     }
 }
 
@@ -110,13 +237,13 @@ if (isset($_POST["submit"])) {
                                                             echo "selected";
                                                         } ?>> Select Type</option>
 
-                                    <option value="USER" <?php if (isset($_GET["Id"])) {
-                                                                if ($TNC["type"] == 'USER') {
+                                    <option value="User" <?php if (isset($_GET["Id"])) {
+                                                                if ($TNC["type"] == 'User') {
                                                                     echo "selected";
                                                                 }
                                                             } ?>>User</option>
-                                    <option value="DRIVER" <?php if (isset($_GET["Id"])) {
-                                                                if ($TNC["type"] == 'DRIVER') {
+                                    <option value="Driver" <?php if (isset($_GET["Id"])) {
+                                                                if ($TNC["type"] == 'Driver') {
                                                                     echo "selected";
                                                                 }
                                                             } ?>>Driver</option>
@@ -127,7 +254,7 @@ if (isset($_POST["submit"])) {
                     </div>
 
 
-     
+
 
                     <div class="card-footer">
                         <div class="row">
@@ -189,28 +316,6 @@ if (isset($_POST["submit"])) {
         </div>
     </div>
 
-    <div class="d-flex flex-column-fluid pt-5 ">
-        <div class="card-body">
-
-            <div class="form-group ">
-                <div class="col-lg-2"></div>
-
-                <!--begin::Card-->
-                <div class="card card-custom gutter-b example example-compact">
-
-                    <div class="card-body">
-           
-
-                    </div>
-                </div>
-                <!--end::Card-->
-
-
-
-            </div>
-
-        </div>
-    </div>
 
     <!--end::Entry-->
 </div>
@@ -228,8 +333,7 @@ if (isset($_POST["submit"])) {
 
     <?php if (isset($successNote)) {
         $_SESSION['profileUpdateStatus'] = $successNote; ?>
-
-        window.location.href = window.location.href;
+        window.location.href = "../Terms-And-Conditions/"
 
     <?php } ?>
 
@@ -248,7 +352,7 @@ if (isset($_POST["submit"])) {
     <?php if (isset($updateNote)) {
         $_SESSION['profileUpdateStatus'] = $updateNote; ?>
 
-        window.location.href = window.location.href;
+        window.location.href = "../Terms-And-Conditions/"
 
     <?php } ?>
 </script>
@@ -263,16 +367,33 @@ if (isset($_POST["submit"])) {
 <script src="../static/assets/js/pages/crud/datatables/basic/scrollable.js"></script>
 
 <script type="text/javascript">
-
     $(document).ready(function() {
 
-        
+
         var table = $('#metarial');
         table.DataTable({
             "scrollX": true,
             "bProcessing": true,
-            "bServerSide": true,
-            "sAjaxSource": "../serverresponse/termsAndConditions.php"
+            "bServerSide": false,
+            "ajax": "../serverresponse/termsAndConditions.php",
+            columns: [{
+                    data: 'count'
+                },
+                {
+                    data: 'action'
+                },
+                {
+                    data: 'type'
+                },
+                {
+                    data: 'title'
+                },
+                {
+                    data: 'value'
+                },
+
+
+            ],
         });
     });
 </script>
@@ -284,12 +405,15 @@ if (isset($_POST["submit"])) {
             url: '../ajax/deleteTerms.php',
             method: "POST",
             data: {
-                'CustomerId': CustomerId
+                'CustomerId': atob(CustomerId)
             },
-            success: function(result) {
-                if (result == 1) {
+            success: function(data) {
+                var result = JSON.parse(data)
 
-                    toastr.success("Deleted ");
+
+                if (result["status"] == 200) {
+
+                    toastr.success("Deleted SuccessFully");
                     $('#metarial').DataTable().ajax.reload();
 
 

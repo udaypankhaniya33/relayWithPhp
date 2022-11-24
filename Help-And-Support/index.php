@@ -1,6 +1,6 @@
 <?php include '../include/header1.php';
 
-$getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created`,`helpAndSupportId`,`user`.`fullName`,`user`.`profile`,`user`.`email`,`helpandsupport`.`email` AS `helpEmail`,`subject`,`description`,`fileName` ,`helpandsupport`.`userId` FROM `helpandsupport` LEFT JOIN `user` ON `user`.`userId`=`helpandsupport`.`userId` WHERE `helpandsupport`.`delete`='0' ORDER BY `helpandsupportId` DESC ")
+
 
 ?>
 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -72,76 +72,7 @@ $getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created
 
 
                             <?php
-                            $counter = 1;
-                            while ($row = mysqli_fetch_array($getHelpAndSupport)) {
 
-
-                                // print_r($row);exit;
-                            ?>
-
-                                <tr>
-                                    <th><?php echo $counter++ ?></th>
-                                    <th>
-                                        <a href="<?php
-                                                    if ($row["userId"] == 0) {
-                                                        echo "#";
-                                                    } else {
-                                                        echo "../userDetails/?id=" . base64_encode($row["userId"]);
-                                                    } ?>" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-                                            <img src="<?php
-                                                        if ($row["profile"] == "") {
-                                                            echo "../static/images/favicon.ico";
-                                                        } else {
-                                                            echo $row["profile"];
-                                                        }
-
-
-                                                        ?>" style="width: 40px;border-radius: 10px;">
-
-                                        </a>
-
-                                        <br>
-                                        <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-                                            <?php echo $row["fullName"] ?>
-                                        </span>
-                                    </th>
-
-                                    <th> <?php
-                                            $date = date_create($row["created"]);
-                                            echo date_format($date, "d-m-Y H:i A");
-
-                                            ?> </th>
-
-                                    <th><?php if ($row["email"] == "") {
-                                            echo $row["helpEmail"];
-                                        } else {
-                                            echo $row["email"];
-                                        }  ?></th>
-                                    <th><?php echo $row["subject"] ?></th>
-
-                                    <th>
-                                        <?php if ($row["fileName"] == "") {
-                                            echo "N/A";
-                                        } else {
-                                        ?>
-
-                                            <a target="_blank" class="btn btn-icon btn-info" href="<?php echo $row["fileName"] ?>"><i class="fas fa-eye"></i>
-                                    </th>
-
-                                <?php } ?>
-                                <th><?php echo $row["description"] ?></th>
-
-
-
-                                <th>
-                                    <a href="#" class="btn btn-block BTN-model btn-sm btn-light-warning font-weight-bolder text-uppercase py-4" onclick="getChats(<?php echo $row['helpAndSupportId'] ?>, '<?php echo $row['fullName'] ?>' )">write message</a>
-                                </th>
-
-                                </tr>
-
-
-
-                            <?php }
                             ?>
                         </tbody>
 
@@ -277,12 +208,12 @@ $getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created
 
         if (data == null || data == undefined || data == "") {
 
-       
+
             $("#chatMassage").html(html)
 
         } else {
 
-            
+
             rows = Object.entries(data)
 
             console.log(rows);
@@ -311,11 +242,6 @@ $getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created
 
 
     }
-
-
-
-
-    
 </script>
 <script language="javascript">
     $(document).ready(function() {
@@ -323,7 +249,41 @@ $getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created
 
 
 
-        $('#metarial').dataTable({});
+        $('#metarial').dataTable({
+
+            "bDestroy": true,
+            "ajax": "../serverresponse/getHelpAndSupport.php",
+            columns: [{
+                    data: 'count'
+                },
+                {
+                    data: 'user'
+                },
+
+                {
+                    data: 'description'
+                },
+                {
+                    data: 'subject'
+                },
+
+                {
+                    data: 'email'
+                },
+                {
+                    data: 'created'
+                },
+                {
+                    data: 'file'
+                },
+
+                {
+                    data: 'action'
+                },
+
+            ],
+
+        });
     });
     $(".BTN-model").on("click", function() {
         $("#kt_chat_modal").modal("toggle");
@@ -405,9 +365,9 @@ $getHelpAndSupport = mysqli_query($connection, "SELECT `helpandsupport`.`created
         chatlength = $(".messageChat:last").attr('id');
 
         if ((message.trim()) == null || (message.trim()) == undefined || (message.trim()) == "") {
-   
 
-        }else{
+
+        } else {
             $.ajax({
                 type: 'POST',
                 dataType: "json",
